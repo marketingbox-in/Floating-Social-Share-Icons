@@ -1,0 +1,116 @@
+<!-- Floating Social Share Buttons for WordPress (Global Implementation) -->
+<!-- To make these buttons appear on ALL posts/pages, this entire code block -->
+<!-- should be added to your WordPress theme's header.php or footer.php file, -->
+<!-- or via a plugin that allows site-wide custom HTML/CSS/JS injection. -->
+
+<!-- Tailwind CSS CDN for styling -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome CDN for social media icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+  /* Custom CSS to ensure the container floats regardless of its parent element */
+  #floating-social-share-container-blog {
+    position: fixed; /* Makes the element stick to the viewport */
+    top: 50%; /* Vertically center */
+    left: 5px; /* Position on the far left with a small margin */
+    transform: translateY(-50%); /* Adjust for perfect vertical centering */
+    z-index: 9999; /* Ensure it stays on top of other content */
+    /* Tailwind classes are added directly in the HTML for better integration */
+  }
+
+  /* Responsive adjustments: Now visible on all screens.
+     You can uncomment and modify the media query below if you want
+     different positioning or behavior on smaller screens. */
+  /* @media (max-width: 767px) {
+    #floating-social-share-container-blog {
+      // Example: If you wanted it at the bottom on mobile
+      // top: auto;
+      // bottom: 10px;
+      // left: 50%;
+      // transform: translateX(-50%);
+      // flex-direction: row;
+    }
+  } */
+
+  /* Individual button styling for hover effects */
+  .social-button-blog {
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  }
+
+  .social-button-blog:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+  }
+
+  /* Specific colors for social media icons */
+  .facebook-bg { background-color: #3b5998; }
+  .twitter-bg { background-color: #1da1f2; }
+  .linkedin-bg { background-color: #0077b5; }
+  .whatsapp-bg { background-color: #25d366; }
+</style>
+
+<div id="floating-social-share-container-blog" class="flex flex-col space-y-3 p-2 bg-white bg-opacity-90 rounded-r-lg shadow-lg border border-gray-200">
+  <!-- Facebook Share Button -->
+  <a href="#" id="share-facebook-blog" target="_blank" rel="noopener noreferrer"
+     class="social-button-blog flex items-center justify-center w-10 h-10 rounded-full facebook-bg text-white text-xl shadow-md hover:shadow-lg">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <!-- Twitter Share Button -->
+  <a href="#" id="share-twitter-blog" target="_blank" rel="noopener noreferrer"
+     class="social-button-blog flex items-center justify-center w-10 h-10 rounded-full twitter-bg text-white text-xl shadow-md hover:shadow-lg">
+    <i class="fab fa-twitter"></i>
+  </a>
+
+  <!-- LinkedIn Share Button -->
+  <a href="#" id="share-linkedin-blog" target="_blank" rel="noopener noreferrer"
+     class="social-button-blog flex items-center justify-center w-10 h-10 rounded-full linkedin-bg text-white text-xl shadow-md hover:shadow-lg">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+
+  <!-- WhatsApp Share Button -->
+  <a href="#" id="share-whatsapp-blog" target="_blank" rel="noopener noreferrer"
+     class="social-button-blog flex items-center justify-center w-10 h-10 rounded-full whatsapp-bg text-white text-xl shadow-md hover:shadow-lg">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the current page's URL and title
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    // Function to update share button links
+    function updateShareLinks() {
+      // Facebook Share
+      const facebookShareBtn = document.getElementById('share-facebook-blog');
+      if (facebookShareBtn) {
+        facebookShareBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      }
+
+      // Twitter Share
+      const twitterShareBtn = document.getElementById('share-twitter-blog');
+      if (twitterShareBtn) {
+        twitterShareBtn.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+      }
+
+      // LinkedIn Share
+      const linkedinShareBtn = document.getElementById('share-linkedin-blog');
+      if (linkedinShareBtn) {
+        linkedinShareBtn.href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}`;
+      }
+
+      // WhatsApp Share
+      const whatsappShareBtn = document.getElementById('share-whatsapp-blog');
+      if (whatsappShareBtn) {
+        // For WhatsApp, the text and URL are combined in the 'text' parameter
+        whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+      }
+    }
+
+    // Call the function to set the links when the DOM is ready
+    updateShareLinks();
+  });
+</script>
